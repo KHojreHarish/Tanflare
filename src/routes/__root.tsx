@@ -3,12 +3,14 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useRouter,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+import { ClientProviders } from '../providers'
 
-import appCss from '../styles/styles.css?url'
+import appCss from '../styles/globals.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
 
@@ -47,6 +49,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const isDev = import.meta.env.DEV
+  const router = useRouter()
+  const { queryClient } = router.options.context
 
   return (
     <html lang="en">
@@ -54,21 +58,23 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
-        {isDev && (
-          <TanstackDevtools
-            config={{
-              position: 'bottom-left',
-            }}
-            plugins={[
-              {
-                name: 'Tanstack Router',
-                render: <TanStackRouterDevtoolsPanel />,
-              },
-              TanStackQueryDevtools,
-            ]}
-          />
-        )}
+        <ClientProviders queryClient={queryClient}>
+          {children}
+          {isDev && (
+            <TanstackDevtools
+              config={{
+                position: 'bottom-left',
+              }}
+              plugins={[
+                {
+                  name: 'Tanstack Router',
+                  render: <TanStackRouterDevtoolsPanel />,
+                },
+                TanStackQueryDevtools,
+              ]}
+            />
+          )}
+        </ClientProviders>
         <Scripts />
       </body>
     </html>

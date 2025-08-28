@@ -83,10 +83,11 @@ npm run cf:typegen
 
 ### Configuration
 
-Edit `wrangler.toml` to configure:
+Edit `wrangler.jsonc` to configure:
 
 - Worker names
 - Environment variables
+- D1 database bindings
 - KV namespaces
 - D1 databases
 

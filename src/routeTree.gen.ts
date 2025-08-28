@@ -12,7 +12,10 @@ import { createServerRootRoute } from '@tanstack/react-start/server'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { ServerRoute as ApiTrpcSplatServerRouteImport } from './routes/api.trpc.$'
+import { Route as AuthAuthViewRouteImport } from './routes/auth/$authView'
+import { Route as AccountAccountViewRouteImport } from './routes/account/$accountView'
+import { ServerRoute as ApiTrpcSplatServerRouteImport } from './routes/api/trpc.$'
+import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth.$'
 
 const rootServerRouteImport = createServerRootRoute()
 
@@ -21,52 +24,79 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthAuthViewRoute = AuthAuthViewRouteImport.update({
+  id: '/auth/$authView',
+  path: '/auth/$authView',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountAccountViewRoute = AccountAccountViewRouteImport.update({
+  id: '/account/$accountView',
+  path: '/account/$accountView',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiTrpcSplatServerRoute = ApiTrpcSplatServerRouteImport.update({
   id: '/api/trpc/$',
   path: '/api/trpc/$',
   getParentRoute: () => rootServerRouteImport,
 } as any)
+const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account/$accountView': typeof AccountAccountViewRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account/$accountView': typeof AccountAccountViewRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account/$accountView': typeof AccountAccountViewRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/account/$accountView' | '/auth/$authView'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/account/$accountView' | '/auth/$authView'
+  id: '__root__' | '/' | '/account/$accountView' | '/auth/$authView'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountAccountViewRoute: typeof AccountAccountViewRoute
+  AuthAuthViewRoute: typeof AuthAuthViewRoute
 }
 export interface FileServerRoutesByFullPath {
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
   '/api/trpc/$': typeof ApiTrpcSplatServerRoute
 }
 export interface FileServerRoutesByTo {
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
   '/api/trpc/$': typeof ApiTrpcSplatServerRoute
 }
 export interface FileServerRoutesById {
   __root__: typeof rootServerRouteImport
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
   '/api/trpc/$': typeof ApiTrpcSplatServerRoute
 }
 export interface FileServerRouteTypes {
   fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/api/trpc/$'
+  fullPaths: '/api/auth/$' | '/api/trpc/$'
   fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/api/trpc/$'
-  id: '__root__' | '/api/trpc/$'
+  to: '/api/auth/$' | '/api/trpc/$'
+  id: '__root__' | '/api/auth/$' | '/api/trpc/$'
   fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
+  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
   ApiTrpcSplatServerRoute: typeof ApiTrpcSplatServerRoute
 }
 
@@ -77,6 +107,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/$authView': {
+      id: '/auth/$authView'
+      path: '/auth/$authView'
+      fullPath: '/auth/$authView'
+      preLoaderRoute: typeof AuthAuthViewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/$accountView': {
+      id: '/account/$accountView'
+      path: '/account/$accountView'
+      fullPath: '/account/$accountView'
+      preLoaderRoute: typeof AccountAccountViewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -90,16 +134,26 @@ declare module '@tanstack/react-start/server' {
       preLoaderRoute: typeof ApiTrpcSplatServerRouteImport
       parentRoute: typeof rootServerRouteImport
     }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountAccountViewRoute: AccountAccountViewRoute,
+  AuthAuthViewRoute: AuthAuthViewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 const rootServerRouteChildren: RootServerRouteChildren = {
+  ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
   ApiTrpcSplatServerRoute: ApiTrpcSplatServerRoute,
 }
 export const serverRouteTree = rootServerRouteImport

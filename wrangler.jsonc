@@ -1,13 +1,66 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "my-start-app",
+  "name": "tanflare",
   "main": ".output/server/index.mjs",
   "compatibility_date": "2025-08-26",
   "compatibility_flags": ["nodejs_compat"],
+
+  // Assets configuration
   "assets": {
     "directory": ".output/public",
   },
+
+  // Observability
   "observability": {
     "enabled": true,
+  },
+  "vars": {
+    "BETTER_AUTH_URL": "http://localhost:3000",
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tanflareDB-Local",
+      "database_id": "11f1de39-251a-46a6-94ca-c7b819d84f18",
+      "migrations_dir": "./src/shared/lib/db/migrations",
+    },
+  ],
+
+  // Environment-specific configurations
+  "env": {
+    // Staging environment
+    "staging": {
+      "name": "tanflare-staging",
+      "vars": {
+        "BETTER_AUTH_URL": "https://subdomain.tanflare.com",
+      },
+
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "tanflareDB-staging",
+          "database_id": "1438c6f1-9d62-4b50-b2de-4cf8de0d0f96",
+          "migrations_dir": "./src/shared/lib/db/migrations",
+        },
+      ],
+    },
+
+    // Production environment
+    "production": {
+      "name": "tanflare-production",
+      "vars": {
+        "BETTER_AUTH_URL": "https://tanflare.com",
+      },
+
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "tanflareDB-prod",
+          "database_id": "fa5a605d-f0c2-4e32-af16-d9848bfe3dc3",
+          "migrations_dir": "./src/shared/lib/db/migrations",
+        },
+      ],
+    },
   },
 }
