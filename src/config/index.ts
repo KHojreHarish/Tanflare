@@ -1,5 +1,5 @@
 // Configuration Exports
-// Export all configuration from a single entry point
+// Simple configuration exports
 
 export { APP_CONFIG, type AppConfig } from './app'
-export { CONSTANTS, type Constants } from './constants'
+export { buildSecurityHeaders, generateNonce } from './security'

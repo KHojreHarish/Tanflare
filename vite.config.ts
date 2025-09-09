@@ -7,10 +7,14 @@ import tailwindcss from '@tailwindcss/vite'
 const config = defineConfig({
   server: {
     port: 3000,
+    watch: {
+      ignored: ['**/.wrangler/**', '**/docs/**'],
+    },
   },
   build: {
     target: 'es2022', // Support top-level await and modern JavaScript features
   },
+
   plugins: [
     // this is the plugin that enables path aliases
     viteTsConfigPaths({

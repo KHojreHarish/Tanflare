@@ -1,5 +1,5 @@
-import { auth } from '@/integrations/better-auth/auth'
 import { createServerFileRoute } from '@tanstack/react-start/server'
+import { auth } from '@/integrations/better-auth/auth'
 
 export const ServerRoute = createServerFileRoute('/api/auth/$').methods({
   GET: ({ request }) => {

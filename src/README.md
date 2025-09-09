@@ -20,14 +20,6 @@ src/
 │   │   ├── utils/                # Auth utility functions
 │   │   └── index.ts              # Feature exports
 │   │
-│   ├── file-upload/              # File upload feature
-│   │   ├── components/           # Dropzone, preview, etc.
-│   │   ├── hooks/                # useFileUpload, useUploadProgress
-│   │   ├── services/             # Cloudinary API integration
-│   │   ├── types/                # File types, upload states
-│   │   ├── utils/                # File validation, processing
-│   │   └── index.ts              # Feature exports
-│   │
 │   ├── email/                    # Email feature
 │   │   ├── components/           # Email templates, forms
 │   │   ├── hooks/                # useEmail, useEmailTemplates
@@ -54,7 +46,6 @@ src/
 │   ├── trpc/                    # tRPC setup
 │   ├── tanstack-query/          # React Query setup
 │   ├── better-auth/             # BetterAuth configuration
-│   ├── cloudinary/              # Cloudinary setup
 │   ├── resend/                  # Resend configuration
 │   └── cloudflare/              # Cloudflare-specific code
 │
@@ -144,7 +135,7 @@ import { LoginForm, useAuth } from '@/features/auth'
 import { Button, useLocalStorage } from '@/shared'
 
 // Import from integrations
-import { trpc } from '@/integrations/trpc'
+import { trpc } from '@/trpc'
 ```
 
 ## 🚀 Benefits for AI Development
@@ -187,7 +178,6 @@ import { trpc } from '@/integrations/trpc'
 src/features/user-profile/
 ├── components/
 │   ├── ProfileForm.tsx
-│   ├── AvatarUpload.tsx
 │   └── ProfileCard.tsx
 ├── hooks/
 │   ├── useProfile.ts

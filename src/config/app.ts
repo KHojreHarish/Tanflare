@@ -16,7 +16,6 @@ export const APP_CONFIG = {
   // Feature flags
   features: {
     auth: true,
-    fileUpload: true,
     email: true,
   },
 

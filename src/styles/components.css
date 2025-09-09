@@ -1,9 +1,0 @@
-/* Component-specific styles */
-/* This file contains styles for specific components that can't be achieved with Tailwind alone */
-
-/* Uppy Dashboard customizations */
-.uppy-Dashboard-poweredBy {
-  display: none !important;
-}
-
-/* Custom component styles can be added here */

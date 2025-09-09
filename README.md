@@ -1,177 +1,160 @@
-# Tanflare - TanStack + Cloudflare Template
+# 🚀 Tanflare - TanStack + Cloudflare Template
 
-A production-ready template built with TanStack Start, featuring authentication, email capabilities, file uploads, and comprehensive utilities.
+**Clone → Install → Deploy → Build something amazing!**
 
-## 🚀 Features
+A production-ready full-stack template built with TanStack Start, Cloudflare Workers, and modern web technologies. Get started with authentication, file uploads, and database integration in minutes.
 
-- **TanStack Router** - Type-safe routing with SSR
-- **tRPC** - End-to-end typesafe APIs
-- **TanStack Query** - Powerful data fetching and caching
-- **File Uploads** - Uppy Dashboard with Webcam support
-- **Tailwind CSS v4** - Latest styling with PostCSS
-- **Cloudflare Workers** - Edge deployment ready
-- **TypeScript** - Full type safety
-- **BetterAuth** - Modern authentication system (ready to configure)
-- **Resend + React Emails** - Professional email templates (planned)
-- **Cloudinary Integration** - File storage ready (planned)
+## ✨ Features
 
-## 🛠️ Tech Stack
+- **🚀 TanStack Start** - Full-stack React framework
+- **☁️ Cloudflare Workers** - Serverless deployment
+- **🔐 Better Auth** - Complete authentication system
+- **📁 File Uploads** - Cloudinary integration with drag & drop
+- **🗄️ Database** - Drizzle ORM with Cloudflare D1
+- **🎨 UI Components** - shadcn/ui with Tailwind CSS
+- **🔒 Security** - CSP, rate limiting, security headers
+- **📧 Email** - Resend integration for verification
 
-- **Frontend**: React 19, TanStack Router, TanStack Query
-- **Backend**: tRPC, TanStack Start
-- **Styling**: Tailwind CSS v4 with PostCSS
-- **Deployment**: Cloudflare Workers & Pages
-- **File Upload**: Uppy v5 with Dashboard + Webcam
-- **Authentication**: BetterAuth (ready to configure)
-- **Email**: Resend + React Emails (planned)
-- **File Storage**: Cloudinary (planned)
+## 🚀 Quick Start (3 Steps)
 
-## 📦 Installation
+### 1. Clone & Install
 
 ```bash
-# Clone the template
-git clone <your-repo-url>
-cd start-trpc
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+git clone https://github.com/your-username/tanflare.git my-awesome-app
+cd my-awesome-app
+pnpm install
 ```
 
-## 🚀 Development
+### 2. Configure Environment
 
 ```bash
-# Development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run serve
-
-# Lint and format
-npm run check
+cp .env.example .env
+# Edit .env with your API keys (see below)
 ```
 
-## ☁️ Cloudflare Deployment
-
-This template is configured for Cloudflare Workers deployment.
-
-### Prerequisites
-
-1. Install Wrangler CLI: `npm install -g wrangler`
-2. Login to Cloudflare: `wrangler login`
-
-### Deploy
+### 3. Start Building
 
 ```bash
-# Deploy to development
-npm run deploy
-
-# Deploy to staging
-npm run deploy:staging
-
-# Deploy to production
-npm run deploy:prod
-
-# Generate Cloudflare types
-npm run cf:typegen
+pnpm run dev
+# Open http://localhost:3000
 ```
 
-### Configuration
+## ⚡ What You Get Out of the Box
 
-Edit `wrangler.jsonc` to configure:
+- ✅ **Authentication** - Complete auth system with Better Auth
+- ✅ **File Uploads** - Drag & drop with Cloudinary
+- ✅ **Database** - Drizzle ORM with Cloudflare D1
+- ✅ **UI Components** - shadcn/ui with Tailwind CSS
+- ✅ **Security** - CSP, rate limiting, security headers
+- ✅ **Email** - Resend integration for verification
+- ✅ **TypeScript** - Full type safety
+- ✅ **Testing** - Vitest setup with examples
 
-- Worker names
-- Environment variables
-- D1 database bindings
-- KV namespaces
-- D1 databases
+## 🔑 Required API Keys
 
-## 🔐 Authentication Setup
+You'll need these accounts (all have free tiers):
 
-BetterAuth is pre-configured and ready to use:
+1. **Cloudflare** - For hosting and database
+2. **Cloudinary** - For file uploads
+3. **Resend** (optional) - For email verification
 
-1. Configure your auth provider in the auth configuration
-2. Set up environment variables
-3. Customize auth UI components
+Get your keys and add them to `.env`:
 
-## 📧 Email Setup
+```bash
+# Authentication (generate with: openssl rand -base64 32)
+BETTER_AUTH_SECRET=your-secret-here
+BETTER_AUTH_URL=http://localhost:3000
 
-Resend + React Emails integration:
+# Cloudinary (get from dashboard)
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 
-1. Get your Resend API key
-2. Configure email templates
-3. Set up environment variables
-
-## 📁 File Upload Setup
-
-Cloudinary + React Uploady integration:
-
-1. Configure Cloudinary credentials
-2. Set up upload presets
-3. Customize upload components
-
-## 🧰 Utilities
-
-The template includes common utilities for:
-
-- Form validation
-- Date/time handling
-- String manipulation
-- API response handling
-- Common React hooks
+# Resend (optional)
+RESEND_API_KEY=your-resend-key
+RESEND_FROM_EMAIL=noreply@yourdomain.com
+```
 
 ## 📁 Project Structure
 
 ```
 src/
-├── components/          # Reusable UI components
-├── integrations/        # Third-party integrations
-│   ├── trpc/           # tRPC setup
-│   └── tanstack-query/ # TanStack Query setup
-├── lib/                 # Utility libraries
-├── routes/              # Application routes
-├── store/               # State management
-├── types/               # TypeScript types
-└── utils/               # Utility functions
+├── config/           # App configuration
+├── integrations/     # Third-party integrations
+├── lib/             # Utilities and database
+├── middleware/      # Security middleware
+├── routes/          # TanStack Router pages
+├── shared/          # Shared components and hooks
+├── trpc/            # tRPC API layer
+└── styles/          # Global styles
 ```
 
-## 🔧 Customization
+## 🚀 Deploy to Production
 
-### Adding New Routes
+```bash
+# 1. Set up Cloudflare D1 database
+npx wrangler d1 create my-app-db
 
-Create new route files in `src/routes/` following TanStack Router conventions.
+# 2. Update wrangler.jsonc with your database ID
 
-### Adding New tRPC Procedures
+# 3. Deploy!
+pnpm run deploy:prod
+```
 
-Extend the router in `src/integrations/trpc/router.ts`.
+## 🔧 Available Scripts
 
-### Adding New Components
+- `pnpm run dev` - Start development server
+- `pnpm run build` - Build for production
+- `pnpm run deploy:prod` - Deploy to production
+- `pnpm run drizzle:gen` - Generate database migrations
 
-Place reusable components in `src/components/`.
+## 🎯 Key Components
+
+### Authentication
+
+- Complete auth system with Better Auth
+- Email verification with Resend
+- Protected routes and API endpoints
+
+### File Uploads
+
+- Drag & drop interface with Cloudinary
+- Image optimization and transformation
+- Progress tracking and error handling
+
+### Database
+
+- Drizzle ORM with SQLite (Cloudflare D1)
+- Type-safe database operations
+- Automatic migrations
+
+### Security
+
+- Content Security Policy (CSP)
+- Rate limiting with TanStack Pacer
+- Security headers and nonce generation
 
 ## 📚 Documentation
 
-- [TanStack Start](https://tanstack.com/start)
-- [TanStack Router](https://tanstack.com/router)
-- [TanStack Query](https://tanstack.com/query)
-- [tRPC](https://trpc.io/)
-- [BetterAuth](https://auth.better-auth.com/)
-- [Resend](https://resend.com/)
-- [Cloudinary](https://cloudinary.com/)
+- [Adding Endpoints](docs/ADDING_ENDPOINTS.md)
+- [Cloudinary Dropzone](docs/CLOUDINARY_DROPZONE.md)
+- [Production Deployment](docs/PRODUCTION_DEPLOYMENT.md)
+- [Security Guide](docs/SECURITY.md)
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+4. Submit a pull request
 
 ## 📄 License
 
-MIT License - see LICENSE file for details.
+MIT License - see LICENSE file for details
+
+## 🙏 Acknowledgments
+
+- [TanStack](https://tanstack.com/) for the amazing tools
+- [Cloudflare](https://cloudflare.com/) for the platform
+- [shadcn/ui](https://ui.shadcn.com/) for the components
+- [Better Auth](https://better-auth.com/) for authentication
