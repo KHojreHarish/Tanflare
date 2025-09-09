@@ -15,28 +15,68 @@ A production-ready full-stack template built with TanStack Start, Cloudflare Wor
 - **🔒 Security** - CSP, rate limiting, security headers
 - **📧 Email** - Resend integration for verification
 
-## 🚀 Quick Start (3 Steps)
+## 🚀 Quick Start
 
-### 1. Clone & Install
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/tanflare.git my-awesome-app
-cd my-awesome-app
+git clone <repository-url>
+cd tanflare
 pnpm install
 ```
 
-### 2. Configure Environment
+### 2. Environment Setup
+
+Create `.env.local` and add essential secrets:
 
 ```bash
-cp .env.example .env
-# Edit .env with your API keys (see below)
+# Authentication
+BETTER_AUTH_SECRET=your-secret-here
+BETTER_AUTH_URL=http://localhost:3000
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+
+# Resend (optional)
+RESEND_API_KEY=your-resend-key
+RESEND_FROM_EMAIL=noreply@yourdomain.com
 ```
 
-### 3. Start Building
+Configure `wrangler.jsonc` with environment-specific secrets for each environment (staging, production).
+
+### 3. Database Setup
+
+Create D1 database and bind it for each environment:
+
+```bash
+# Create D1 database
+npx wrangler d1 create tanflare-db
+
+# Generate schema with Drizzle
+pnpm run drizzle:gen
+
+# Migrate to specific environment
+npx wrangler d1 migrations apply tanflare-db --env=staging
+npx wrangler d1 migrations apply tanflare-db --env=production
+```
+
+### 4. Run Application
 
 ```bash
 pnpm run dev
 # Open http://localhost:3000
+```
+
+### 5. Deploy
+
+```bash
+# Deploy to staging
+pnpm run deploy:staging
+
+# Deploy to production (after staging is verified)
+pnpm run deploy:prod
 ```
 
 ## ⚡ What You Get Out of the Box
@@ -89,23 +129,40 @@ src/
 └── styles/          # Global styles
 ```
 
-## 🚀 Deploy to Production
+## 🚀 Deployment Guide
 
-```bash
-# 1. Set up Cloudflare D1 database
-npx wrangler d1 create my-app-db
+### Environment Configuration
 
-# 2. Update wrangler.jsonc with your database ID
+1. **Set up Cloudflare D1 database:**
+   ```bash
+   npx wrangler d1 create tanflare-db
+   ```
 
-# 3. Deploy!
-pnpm run deploy:prod
-```
+2. **Update `wrangler.jsonc` with your database ID and environment-specific secrets**
+
+3. **Deploy to staging first:**
+   ```bash
+   pnpm run deploy:staging
+   ```
+
+4. **Deploy to production after staging verification:**
+   ```bash
+   pnpm run deploy:prod
+   ```
+
+### Environment-Specific Setup
+
+Each environment (staging, production) requires:
+- D1 database binding
+- Environment-specific secrets in `wrangler.jsonc`
+- Database migrations applied with `--env=<environment_name>`
 
 ## 🔧 Available Scripts
 
 - `pnpm run dev` - Start development server
 - `pnpm run build` - Build for production
-- `pnpm run deploy:prod` - Deploy to production
+- `pnpm run deploy:staging` - Deploy to staging environment
+- `pnpm run deploy:prod` - Deploy to production environment
 - `pnpm run drizzle:gen` - Generate database migrations
 
 ## 🎯 Key Components
