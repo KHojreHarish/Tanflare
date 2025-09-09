@@ -20,6 +20,14 @@ A production-ready full-stack template built with TanStack Start, Cloudflare Wor
 ### 1. Clone the Repository
 
 ```bash
+# Shallow clone (recommended - no history)
+git clone --depth 1 https://github.com/KHojreHarish/Tanflare.git
+cd tanflare
+pnpm install
+```
+
+**Alternative**: If you want the full repository history:
+```bash
 git clone https://github.com/KHojreHarish/Tanflare.git
 cd tanflare
 pnpm install
